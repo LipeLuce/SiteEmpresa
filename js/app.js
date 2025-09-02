@@ -86,4 +86,38 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     window.addEventListener("scroll", onScroll);
     onScroll();
+
+    // ================= CARROSSEL (SLIDER) =================
+    document.querySelectorAll(".carousel-container").forEach((container) => {
+        const track = container.querySelector(".carousel-track");
+        const slides = Array.from(track.children);
+        const nextButton = container.querySelector(".carousel-button.next");
+        const prevButton = container.querySelector(".carousel-button.prev");
+        let slideWidth = slides[0].getBoundingClientRect().width;
+        let currentSlide = 0;
+
+        // Ajusta a largura do slide em caso de redimensionamento
+        const setSlideWidth = () => {
+            slideWidth = slides[0].getBoundingClientRect().width;
+            track.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+        };
+
+        window.addEventListener("resize", setSlideWidth);
+        setSlideWidth(); // Define a largura inicial
+
+        // Move para o próximo slide
+        const moveToNextSlide = () => {
+            currentSlide = (currentSlide + 1) % slides.length;
+            track.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+        };
+
+        // Move para o slide anterior
+        const moveToPrevSlide = () => {
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            track.style.transform = `translateX(-${slideWidth * currentSlide}px)`;
+        };
+
+        nextButton.addEventListener("click", moveToNextSlide);
+        prevButton.addEventListener("click", moveToPrevSlide);
+    });
 });

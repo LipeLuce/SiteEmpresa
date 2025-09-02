@@ -20,7 +20,7 @@ body {
     font-family: 'Poppins', sans-serif;
     line-height: 1.6;
     color: var(--dark-color);
-    background-color: var(--light-color); /* Fundo padrão para o efeito de transparência */
+    background-color: var(--light-color);
 }
 
 /* Compensa header fixo */
@@ -332,10 +332,10 @@ h2::after {
 .nossa-essencia {
     text-align: center;
     position: relative;
-    /* Degradê suave e transparente */
-    background: linear-gradient(180deg, rgba(249, 231, 252, 0.5) 0%, rgba(195, 143, 176, 0.3) 100%);
-    padding: 6rem 5% 4rem; /* Padding padrão para a seção */
+    background: linear-gradient(180deg, rgba(249, 231, 252, 0) 0%, rgba(195, 143, 176, 0.08) 50%, rgba(249, 231, 252, 0) 100%);
+    padding: 6rem 5% 4rem;
     overflow: hidden;
+    scroll-margin-top: 110px;
 }
 
 .nossa-essencia h2 {
@@ -348,18 +348,20 @@ h2::after {
 }
 
 .essencia-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    flex-wrap: wrap;
     gap: 2rem;
     margin-top: 2rem;
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
     padding: 0 5%;
-    position: relative;
 }
 
 .essencia-card {
+    flex: 1 1 300px;
     text-align: center;
     background: #fff;
     color: var(--dark-color);
@@ -367,6 +369,11 @@ h2::after {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
 }
 
 .essencia-card:hover {
@@ -385,21 +392,67 @@ h2::after {
     line-height: 1.6;
 }
 
-/* Estilo para a imagem de "Nossa Essência" - no final da seção, largura total e corte valorizado */
-.essencia-image {
-    width: 100vw; /* Ocupa a largura total da viewport */
-    max-width: none; /* Remove qualquer limite de largura */
-    height: 800px; /* Altura fixa para um efeito de faixa, ajuste conforme necessário */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 4rem; /* Espaçamento entre os cards e a imagem */
-    margin-left: calc(50% - 50vw); /* Truque para centralizar e ocupar 100vw */
-    margin-right: calc(50% - 50vw); /* Truque para centralizar e ocupar 100vw */
-    display: block; /* Garante que ela ocupe a largura total disponível e centralize */
-    object-fit: cover; /* Garante que a imagem cubra a área definida */
-    object-position: center middle; /* Prioriza o meio da imagem no corte */
+/* ================= PARCEIROS ================= */
+.parceiros {
+    padding: 2rem 0;
+    text-align: center;
+    background-color: #f8f8f8;
+    overflow: hidden;
+    position: relative;
+    scroll-margin-top: 110px;
 }
 
+.logo-carousel-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.logo-carousel-track {
+    display: inline-block;
+    animation: scroll-left 30s linear infinite;
+    padding: 1rem 0;
+}
+
+.logo-carousel-track img {
+    height: 60px;
+    width: auto;
+    margin: 0 30px;
+    vertical-align: middle;
+    max-width: 150px;
+    filter: grayscale(80%) opacity(70%);
+    transition: filter 0.3s ease;
+}
+
+.logo-carousel-track img:hover {
+    filter: grayscale(0%) opacity(100%);
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.logo-carousel-track:hover {
+    animation-play-state: paused;
+}
+
+/* Classe para esconder conteúdo visualmente, mas mantê-lo para leitores de tela */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
 
 /* ================= SERVIÇOS ================= */
 .servicos-grid {
@@ -429,25 +482,90 @@ h2::after {
     margin-bottom: 1rem;
 }
 
-/* ================= PORTFÓLIO ================= */
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 1.5rem;
-    margin-top: 2rem;
+/* ================= PORTFÓLIO - NOVAS SEÇÕES DE RESULTADO ================= */
+.portfolio h2 {
+    margin-bottom: 1rem;
 }
 
-.portfolio-item {
-    width: 100%;
-    height: auto;
+.portfolio p {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 1.1rem;
+    color: #555;
+}
+
+.resultado-item {
+    background: #fff;
     border-radius: 8px;
-    object-fit: cover;
-    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    padding: 2.5rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.portfolio-item:hover {
-    transform: scale(1.03);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.resultado-item h3 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.resultado-item p {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+    color: var(--dark-color);
+    text-align: left;
+}
+
+/* ================= CARROSSEL (SLIDER) ================= */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-track img {
+    min-width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    font-size: 1.5rem;
+    z-index: 20;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.carousel-button.prev {
+    left: 10px;
+}
+
+.carousel-button.next {
+    right: 10px;
 }
 
 /* ================= CONTATO ================= */
@@ -557,11 +675,51 @@ h2::after {
         width: 32px;
         height: 32px;
     }
-    .essencia-image {
-        height: 200px; /* Ajusta a altura da imagem hero para telas menores */
-        margin-top: 2rem;
-    }
     .nossa-essencia h2 {
         margin-top: 2rem;
+    }
+    /* Responsividade para o carrossel de resultados */
+    .carousel-track img {
+        height: 250px;
+    }
+    .carousel-button {
+        padding: 0.6rem 0.9rem;
+        font-size: 1.2rem;
+    }
+    .resultado-item {
+        padding: 1.5rem;
+    }
+    .resultado-item h3 {
+        font-size: 1.6rem;
+    }
+    /* Responsividade para o carrossel de parceiros */
+    .logo-carousel-track img {
+        height: 45px;
+        margin: 0 20px;
+    }
+    .parceiros h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Responsividade para o carrossel de resultados em mobile */
+    .carousel-track img {
+        height: 180px;
+    }
+    .carousel-button {
+        padding: 0.4rem 0.7rem;
+        font-size: 1rem;
+    }
+    .resultado-item h3 {
+        font-size: 1.4rem;
+    }
+    /* Responsividade para o carrossel de parceiros em mobile */
+    .logo-carousel-track img {
+        height: 35px;
+        margin: 0 15px;
+    }
+    .parceiros h2 {
+        font-size: 1.8rem;
     }
 }
