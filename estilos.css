@@ -268,6 +268,7 @@ h2::after {
     flex-wrap: wrap;
 }
 
+/* Mantém o padrão de ordem para telas grandes */
 .quem-somos-item.reverso {
     flex-direction: row-reverse;
 }
@@ -275,9 +276,10 @@ h2::after {
 .quem-somos-imagem {
     flex: 1;
     position: relative;
-    padding-bottom: 30%;
     height: 0;
+    padding-bottom: 30%; /* Proporção para desktop */
     overflow: hidden;
+    min-width: 280px;
 }
 
 .quem-somos-imagem img {
@@ -326,6 +328,45 @@ h2::after {
     color: var(--primary-color);
     position: absolute;
     left: 0;
+}
+
+/* ================= RESPONSIVIDADE ESPECÍFICA PARA QUEM SOMOS ================= */
+@media (max-width: 992px) {
+    .quem-somos-item {
+        flex-direction: column; /* Altera para coluna */
+        text-align: center;
+    }
+    .quem-somos-item.reverso {
+        flex-direction: column; /* Força para coluna também no item reverso */
+    }
+    .quem-somos-texto {
+        padding: 0;
+    }
+    .quem-somos-imagem {
+        order: 2; /* Garante que a imagem venha depois do texto */
+        padding-bottom: 70%; 
+        width: 90%;
+        margin: 1.5rem auto 1.5rem auto;
+        height: 0;
+    }
+    .quem-somos-texto {
+        order: 1; /* Garante que o texto venha primeiro */
+    }
+}
+
+/* ================= RESPONSIVIDADE ================= */
+@media (max-width: 992px) {
+    .quem-somos-item, .quem-somos-item.reverso {
+        flex-direction: column;
+        text-align: center;
+    }
+    .quem-somos-texto {
+        padding: 0;
+    }
+    .quem-somos-imagem {
+        /* Correção: Ajusta a proporção para celular */
+        padding-bottom: 70%; 
+    }
 }
 
 /* ================= NOSSA ESSÊNCIA ================= */
