@@ -5,6 +5,7 @@
     --light-color: #f4f4f4;
 }
 
+/* Base Styles */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -23,9 +24,13 @@ body {
     background-color: var(--light-color);
 }
 
-/* Compensa header fixo */
 main {
     padding-top: 90px;
+}
+
+a:focus, button:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 3px;
 }
 
 /* ================= HEADER ================= */
@@ -79,12 +84,6 @@ main {
     color: var(--primary-color);
 }
 
-/* Focus acessível */
-a:focus, button:focus {
-    outline: 2px solid var(--secondary-color);
-    outline-offset: 3px;
-}
-
 .nav-toggle {
     display: none;
     background: transparent;
@@ -105,7 +104,8 @@ a:focus, button:focus {
     transition: background-color 0.3s ease-in-out;
 }
 
-.hamburger::before, .hamburger::after {
+.hamburger::before,
+.hamburger::after {
     content: '';
     display: block;
     width: 1.5rem;
@@ -138,40 +138,18 @@ a:focus, button:focus {
     top: 0;
 }
 
-/* ================= MENU MOBILE ================= */
-@media (max-width: 768px) {
-    .nav {
-        position: relative;
-    }
-    .nav-toggle {
-        display: block;
-    }
-    .nav-menu {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        background: #fff;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-    .nav-menu.active {
-        max-height: 500px;
-    }
-    .nav-menu li {
-        padding: 1rem 0;
-    }
-}
-
-/* ================= SEÇÕES ================= */
+/* ================= SEÇÕES E TÍTULOS ================= */
 section {
     padding: 6rem 5% 4rem;
     scroll-margin-top: 110px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 h2 {
@@ -220,7 +198,8 @@ h2::after {
     text-align: left;
 }
 
-.hero-content h1, .hero-content p {
+.hero-content h1,
+.hero-content p {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 
@@ -246,7 +225,8 @@ h2::after {
     transition: background-color 0.3s;
 }
 
-.btn:hover, .btn:focus {
+.btn:hover,
+.btn:focus {
     background-color: #a57891;
 }
 
@@ -268,16 +248,11 @@ h2::after {
     flex-wrap: wrap;
 }
 
-/* Mantém o padrão de ordem para telas grandes */
-.quem-somos-item.reverso {
-    flex-direction: row-reverse;
-}
-
 .quem-somos-imagem {
     flex: 1;
     position: relative;
     height: 0;
-    padding-bottom: 30%; /* Proporção para desktop */
+    padding-bottom: 30%;
     overflow: hidden;
     min-width: 280px;
 }
@@ -330,43 +305,9 @@ h2::after {
     left: 0;
 }
 
-/* ================= RESPONSIVIDADE ESPECÍFICA PARA QUEM SOMOS ================= */
-@media (max-width: 992px) {
-    .quem-somos-item {
-        flex-direction: column; /* Altera para coluna */
-        text-align: center;
-    }
-    .quem-somos-item.reverso {
-        flex-direction: column; /* Força para coluna também no item reverso */
-    }
-    .quem-somos-texto {
-        padding: 0;
-    }
-    .quem-somos-imagem {
-        order: 2; /* Garante que a imagem venha depois do texto */
-        padding-bottom: 70%; 
-        width: 90%;
-        margin: 1.5rem auto 1.5rem auto;
-        height: 0;
-    }
-    .quem-somos-texto {
-        order: 1; /* Garante que o texto venha primeiro */
-    }
-}
-
-/* ================= RESPONSIVIDADE ================= */
-@media (max-width: 992px) {
-    .quem-somos-item, .quem-somos-item.reverso {
-        flex-direction: column;
-        text-align: center;
-    }
-    .quem-somos-texto {
-        padding: 0;
-    }
-    .quem-somos-imagem {
-        /* Correção: Ajusta a proporção para celular */
-        padding-bottom: 70%; 
-    }
+/* Regra para a segunda seção: texto-imagem */
+.quem-somos-item.reverso {
+    flex-direction: row-reverse;
 }
 
 /* ================= NOSSA ESSÊNCIA ================= */
@@ -410,6 +351,7 @@ h2::after {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
     
     display: flex;
     flex-direction: column;
@@ -435,7 +377,6 @@ h2::after {
 
 /* ================= PARCEIROS ================= */
 .parceiros {
-    padding: 2rem 0;
     text-align: center;
     background-color: #f8f8f8;
     overflow: hidden;
@@ -510,6 +451,7 @@ h2::after {
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
 }
 
 .servico-card:hover {
@@ -523,7 +465,7 @@ h2::after {
     margin-bottom: 1rem;
 }
 
-/* ================= PORTFÓLIO - NOVAS SEÇÕES DE RESULTADO ================= */
+/* ================= PORTFÓLIO ================= */
 .portfolio h2 {
     margin-bottom: 1rem;
 }
@@ -609,52 +551,86 @@ h2::after {
     right: 10px;
 }
 
-/* ================= CONTATO ================= */
+/* ================= CONTAINER DO DESTAQUE ================= */
+.destaque-card-container {
+    max-width: 1100px;
+    margin: 4rem auto; /* Centraliza e adiciona espaçamento superior e inferior */
+    padding: 0 5%;
+}
+
+/* ================= SEÇÃO CONTATO ================= */
 .contato {
     text-align: center;
-    padding: 4rem 5%;
+    scroll-margin-top: 110px;
+}
+
+.contato-imagem-perfil {
+    margin-bottom: 20px;
+}
+
+.contato-imagem-perfil img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
 }
 
 .contact-form {
     display: flex;
     flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    gap: 1rem;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto 30px;
 }
 
-.contact-form input, .contact-form textarea {
+.contact-form input,
+.contact-form textarea {
     width: 100%;
-    padding: 1rem;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1rem;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.2);
 }
 
 .contact-form textarea {
     resize: vertical;
-    height: 150px;
+    min-height: 120px;
 }
 
-.contact-info {
-    margin-top: 2rem;
-}
-
-.contact-info h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.contact-info p {
-    margin-bottom: 0.5rem;
-}
-
-/* ================= FOOTER ================= */
+/* ================= RODAPÉ E ÍCONES SOCIAIS ================= */
 .footer {
+    padding: 20px;
     text-align: center;
-    padding: 2rem;
-    background: var(--dark-color);
+    background-color: var(--primary-color);
     color: #fff;
+}
+
+.social-icons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 28px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icons a:hover {
+    transform: scale(1.1);
+    color: #cccccc;
 }
 
 /* ================= WHATSAPP ================= */
@@ -674,21 +650,63 @@ h2::after {
 }
 
 .whatsapp-btn img {
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
 }
 
 /* ================= RESPONSIVIDADE ================= */
 @media (max-width: 992px) {
-    .quem-somos-item, .quem-somos-item.reverso {
+    .nav {
+        position: relative;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: #fff;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+    .nav-menu.active {
+        max-height: 500px;
+    }
+    .nav-menu li {
+        padding: 1rem 0;
+    }
+    .quem-somos-item,
+    .quem-somos-item.reverso {
         flex-direction: column;
         text-align: center;
     }
-    .quem-somos-texto {
-        padding: 0;
+    .quem-somos-item:first-of-type .quem-somos-imagem img {
+        object-position: center 20%;
     }
-    .quem-somos-imagem {
-        padding-bottom: 50%;
+     .quem-somos-imagem {
+        order: 2;
+        width: 100%; /* Faz a imagem ocupar toda a largura disponível */
+        flex: unset; /* Remove o flex: 1 para não restringir a largura a 50% */
+        padding-bottom: 40%; /* Ajuste a altura para um retângulo mais presente (ex: 2.5:1) */
+        /* Teste com 35%, 40%, 45% para ver qual fica com a largura ideal sem cortar muito. */
+        /* 40% é um bom equilíbrio para ser mais presente mas ainda retangular. */
+    }
+    
+    /* Remover o padding do texto para evitar espaçamento desnecessário acima da imagem */
+    .quem-somos-texto {
+        padding: 0; /* Garante que o texto não empurre a imagem para baixo desnecessariamente */
+        order: 1;
+        width: 100%; /* Faz o texto ocupar toda a largura também */
+    }
+    .essencia-card {
+        flex: 1 1 250px;
     }
 }
 
@@ -719,7 +737,6 @@ h2::after {
     .nossa-essencia h2 {
         margin-top: 2rem;
     }
-    /* Responsividade para o carrossel de resultados */
     .carousel-track img {
         height: 250px;
     }
@@ -733,18 +750,13 @@ h2::after {
     .resultado-item h3 {
         font-size: 1.6rem;
     }
-    /* Responsividade para o carrossel de parceiros */
     .logo-carousel-track img {
         height: 45px;
         margin: 0 20px;
     }
-    .parceiros h2 {
-        font-size: 1.8rem;
-    }
 }
 
 @media (max-width: 480px) {
-    /* Responsividade para o carrossel de resultados em mobile */
     .carousel-track img {
         height: 180px;
     }
@@ -755,12 +767,36 @@ h2::after {
     .resultado-item h3 {
         font-size: 1.4rem;
     }
-    /* Responsividade para o carrossel de parceiros em mobile */
     .logo-carousel-track img {
         height: 35px;
         margin: 0 15px;
     }
-    .parceiros h2 {
-        font-size: 1.8rem;
+}
+
+/* ================= EFEITO PARALLAX NO HERO ================= */
+.hero {
+    position: relative;
+    height: 80vh;
+    /* Imagem de fundo */
+    background-image: url('Imagens/Imagem do WhatsApp de 2025-08-26 à(s) 22.50.39_8893ca51.jpg');
+    /* A imagem preenche o espaço */
+    background-size: cover;
+    /* A imagem fica centralizada */
+    background-position: center;
+    /* EFEITO PARALLAX */
+    background-attachment: fixed; 
+}
+
+/* Garante que o parallax não quebre em dispositivos móveis */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+    }
+}
+/* Garante que o parallax não quebre em dispositivos móveis */
+@media (max-width: 768px) {
+    .hero {
+        background-attachment: scroll;
+        background-position: center;
     }
 }
